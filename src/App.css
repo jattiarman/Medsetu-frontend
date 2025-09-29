@@ -1,38 +1,400 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* A simple CSS Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+body, h1, h2, h3, h4, p, figure, blockquote, dl, dd {
+  margin: 0;
+}
+:root {
+  --primary-color: #3b82f6; /* A nice, modern blue */
+  --primary-hover: #2563eb;
+  --bg-color: #f9fafb; /* Off-white for a softer look */
+  --card-bg: #ffffff;
+  --text-color: #1f2937;
+  --text-muted: #6b7280;
+  --border-color: #e5e7eb;
+  --border-radius: 0.75rem; /* Rounded corners */
+  --box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* --- Header & Navigation --- */
+.header {
+  background-color: var(--card-bg);
+  height: 80px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--box-shadow);
+  padding: 0 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+}
+
+.nav-logo {
+  color: var(--primary-color);
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links {
+  color: var(--text-muted);
+  font-weight: 600;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  gap: 0.5rem;
+  transition: all 0.2s ease-out;
+}
+
+.nav-links:hover {
+  background-color: #f3f4f6;
+  color: var(--primary-color);
+}
+
+.nav-links.activated {
+  background-color: #dbeafe;
+  color: var(--primary-color);
+}
+
+/* --- Main Content Area --- */
+.main-content {
+  padding: 2.5rem;
+}
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- Search Page --- */
+.search-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  border: 1px solid var(--border-color);
+}
+
+.search-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.search-subtitle {
+  color: var(--text-muted);
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.search-form {
+  display: flex;
+  gap: 1rem;
+}
+
+.search-input-wrapper {
+  flex-grow: 1;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.8rem 1rem 0.8rem 2.5rem; /* Space for icon */
+  box-sizing: border-box;
+  font-size: 1rem;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-color);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input-icon {
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+.search-button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background: var(--primary-color);
   color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.App-link {
-  color: #61dafb;
+.search-button:hover {
+  background: var(--primary-hover);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.result-box, .error-box {
+  text-align: left;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
 }
+
+.error-box {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+
+.result-item-wrapper {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  background-color: #f9fafb;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+.code-highlight {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  background-color: #e5e7eb;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  color: var(--text-color);
+}
+
+/* --- Patient Dashboard --- */
+.dashboard-container {
+  display: flex;
+  gap: 2rem;
+  height: calc(100vh - 80px - 5rem);
+}
+
+.patient-list-column {
+  flex: 1;
+  max-width: 400px;
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.column-title {
+  margin-top: 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.patient-list {
+  overflow-y: auto;
+  flex-grow: 1;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+}
+
+.patient-list-item {
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 500;
+}
+.patient-list-item:last-child {
+  border-bottom: none;
+}
+
+.patient-list-item.selected {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.patient-details-column {
+  flex: 2;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.details-card {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  border: 1px solid var(--border-color);
+  padding: 2.5rem;
+  flex-grow: 1;
+}
+
+.patient-name-title {
+  font-size: 1.75rem;
+  margin-top: 0;
+}
+
+.patient-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.symptoms-p {
+  grid-column: 1 / -1;
+}
+
+.details-card hr {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 1.5rem 0;
+}
+
+.details-section h3 {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-color);
+  display: inline-block;
+}
+.details-section p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.details-section strong {
+  color: var(--text-muted);
+  margin-right: 0.5rem;
+}
+
+.attending-doctor {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: #eef2ff;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #c7d2fe;
+  margin-top: 1.5rem;
+}
+.attending-doctor span {
+  font-weight: 500;
+}
+.attending-doctor strong {
+    color: #4338ca;
+}
+.attending-doctor-icon {
+  color: #6366f1;
+  font-size: 1.2rem;
+}
+
+.details-card-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+
+/* --- Doctors Page --- */
+.doctors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.doctor-card {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  border: 1px solid var(--border-color);
+  text-align: left;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.doctor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.doctor-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.doctor-icon {
+  font-size: 2rem;
+  color: var(--primary-color);
+  background-color: #dbeafe;
+  padding: 0.75rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.doctor-card h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+.doctor-card p {
+  margin: 0;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+

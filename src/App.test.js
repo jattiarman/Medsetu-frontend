@@ -1,8 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders the main header with the Code Translator link', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
+  
+  // Look for the "Code Translator" link in the document
+  const linkElement = screen.getByText(/Code Translator/i);
+  
+  // Assert that this link is actually present
   expect(linkElement).toBeInTheDocument();
 });
