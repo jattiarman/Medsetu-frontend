@@ -1,12 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* A simple CSS Reset */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-body, h1, h2, h3, h4, p, figure, blockquote, dl, dd {
-  margin: 0;
-}
 :root {
   --primary-color: #3b82f6; /* A nice, modern blue */
   --primary-hover: #2563eb;
@@ -194,7 +187,7 @@ body {
   border: 1px solid var(--border-color);
 }
 
-.error-box {
+.error-box, .error-text {
   background-color: #fee2e2;
   color: #b91c1c;
   border-color: #fecaca;
@@ -255,10 +248,14 @@ body {
   text-align: left;
   border-bottom: 1px solid var(--border-color);
   font-weight: 500;
-  color: var(--text-color); /* <-- ADD THIS LINE */
+  color: var(--text-color); /* FIX: Ensures text is always visible */
 }
 .patient-list-item:last-child {
   border-bottom: none;
+}
+
+.patient-list-item:hover {
+    background-color: #f3f4f6;
 }
 
 .patient-list-item.selected {
@@ -281,6 +278,7 @@ body {
   border: 1px solid var(--border-color);
   padding: 2.5rem;
   flex-grow: 1;
+  overflow-y: auto;
 }
 
 .patient-name-title {
@@ -398,4 +396,3 @@ body {
   color: var(--text-muted);
   font-weight: 500;
 }
-
