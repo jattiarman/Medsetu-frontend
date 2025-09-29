@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { FaUserMd } from 'react-icons/fa';
 
-// This URL must be exactly this.
 const API_URL = 'https://medsetu-backend.onrender.com';
 
 function PatientDashboard() {
@@ -15,7 +14,6 @@ function PatientDashboard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Fetch both patients and doctors at the same time
                 const [patientsRes, doctorsRes] = await Promise.all([
                     fetch(`${API_URL}/api/patients`),
                     fetch(`${API_URL}/api/doctors`)
@@ -31,7 +29,7 @@ function PatientDashboard() {
                 setPatients(patientsData);
                 setDoctors(doctorsData);
             } catch (err) {
-                setError('Failed to fetch initial data. Please ensure the backend server is running.');
+                setError('Failed to fetch initial data. Please ensure the backend server is running and accessible.');
             } finally {
                 setLoading(false);
             }
@@ -54,10 +52,8 @@ function PatientDashboard() {
             }
             
             if (data && data.length > 0) {
-                // The API returns an array, we'll display the first result
                 setMappedDiagnosis(data[0]);
             } else {
-                // This case should not happen if the dictionary is correct
                 setMappedDiagnosis({ error: "No valid mapping was returned from server" });
             }
         } catch (err) {
@@ -67,19 +63,13 @@ function PatientDashboard() {
 
     const handlePatientSelect = (patient) => {
         setSelectedPatient(patient);
-        setMappedDiagnosis(null); // Clear previous mapping
+        setMappedDiagnosis(null);
         if (patient && patient.visit && patient.visit.diagnosis) {
             fetchMappedDiagnosis(patient.visit.diagnosis.code);
         }
     };
     
-    // Find the attending doctor based on the patient's doctorId
-    const getAttendingDoctor = () => {
-        if (!selectedPatient || !doctors.length || !selectedPatient.doctorId) return null;
-        return doctors.find(doc => doc.id === selectedPatient.doctorId);
-    };
-    
-    const attendingDoctor = getAttendingDoctor();
+    const attendingDoctor = selectedPatient ? doctors.find(doc => doc.id === selectedPatient.doctorId) : null;
 
     if (loading) {
         return (
@@ -120,9 +110,9 @@ function PatientDashboard() {
                             <p><strong>Age:</strong> {selectedPatient.age}</p>
                             <p><strong>Visit Date:</strong> {selectedPatient.visit.date}</p>
                             <p className="symptoms-p">
-  <strong>Symptoms:</strong> 
-  {selectedPatient.symptoms?.join(', ') || 'N/A'}
-</p>
+                                <strong>Symptoms:</strong> 
+                                {selectedPatient.symptoms && selectedPatient.symptoms.length > 0 ? selectedPatient.symptoms.join(', ') : 'N/A'}
+                            </p>
                         </div>
 
                         {attendingDoctor && (
@@ -162,4 +152,3 @@ function PatientDashboard() {
 }
 
 export default PatientDashboard;
-
