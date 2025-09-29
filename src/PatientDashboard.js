@@ -119,7 +119,10 @@ function PatientDashboard() {
                         <div className="patient-info-grid">
                             <p><strong>Age:</strong> {selectedPatient.age}</p>
                             <p><strong>Visit Date:</strong> {selectedPatient.visit.date}</p>
-                            <p className="symptoms-p"><strong>Symptoms:</strong> {selectedPatient.symptoms.join(', ')}</p>
+                            <p className="symptoms-p">
+  <strong>Symptoms:</strong> 
+  {selectedPatient.symptoms?.join(', ') || 'N/A'}
+</p>
                         </div>
 
                         {attendingDoctor && (
